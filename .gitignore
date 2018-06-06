@@ -1,0 +1,17 @@
+# Mac OS
+.DS_Store
+
+# IDE
+.idea
+.project
+
+#VSCode
+.vscode
+
+# npm
+node_modules
+npm-debug.log
+
+# folder
+dist
+
