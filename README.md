@@ -1,1 +1,1 @@
-# front-react
+# webpack4 + React template

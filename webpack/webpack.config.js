@@ -1,10 +1,10 @@
 const path = require('path');
-const webpack = require('webpack');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   entry: {
-      app: ['babel-polyfill', path.resolve(__dirname, '../src/index.js')],// 指定入口文件，程序从这里开始编译,__dirname当前目录
-      vendor: ['react', 'react-dom', 'babel-polyfill'],
+    app: ['babel-polyfill', path.resolve(__dirname, '../src/index.js')], // 指定入口文件，程序从这里开始编译,__dirname当前目录
+    vendor: ['react', 'react-dom', 'babel-polyfill'],
   },
   resolve: { // 指定第三方库目录，减少webpack寻找时间
     modules: [path.resolve(__dirname, '../node_modules')],
@@ -50,20 +50,26 @@ module.exports = {
           },
         }],
       },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192, // 小于8k的图片自动转成base64格式，并且不会存在实体图片
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: [
+          'file-loader',
+        ],
+      },
     ],
   },
-  optimization: {
-    runtimeChunk: {
-        name: "manifest"
-    },
-    splitChunks: {
-        cacheGroups: {
-            commons: {
-                test: /[\\/]node_modules[\\/]/,
-                name: "vendor",
-                chunks: "all"
-            }
-        }
-    }
-  },
+  plugins: [
+    new CleanWebpackPlugin(),
+  ],
 };

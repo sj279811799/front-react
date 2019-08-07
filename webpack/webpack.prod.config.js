@@ -8,34 +8,35 @@ const webpackConfig = require('./webpack.config');
 process.env.NODE_ENV = 'production';
 
 module.exports = merge(webpackConfig, {
-    mode: 'production',
-    entry: [
-        'babel-polyfill',
-        path.resolve(__dirname, '../src/index.prod.js'),
-    ], 
-    plugins: [
-        new UglifyJSPlugin({
-        uglifyOptions: {
-            output: {
-            comments: false,
-            beautify: false,
-            },
+  mode: 'production',
+  entry: [
+    'babel-polyfill',
+    path.resolve(__dirname, '../src/index.prod.js'),
+  ],
+  plugins: [
+    new UglifyJSPlugin({
+      uglifyOptions: {
+        output: {
+          comments: false,
+          beautify: false,
         },
-        }),
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
-        }),
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/index.template.html'),
-            inject: true,
-            minify: {
-                html5: true,
-                collapseWhitespace: true,
-                removeComments: true,
-                removeTagWhitespace: true,
-                removeEmptyAttributes: true,
-                removeStyleLinkTypeAttributes: true,
-            },
-        }),
-    ],
+      },
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
+    }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, '../src/index.template.html'),
+      inject: true,
+      title: '正式环境',
+      minify: {
+        html5: true,
+        collapseWhitespace: true,
+        removeComments: true,
+        removeTagWhitespace: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+      },
+    }),
+  ],
 });
