@@ -13,6 +13,13 @@ const server = new WebpackDevServer(compiler, {
   port: 9001, // 如果省略，默认8080
   publicPath: '/',
   open: true,
+  // proxy: [{
+  //   context: ['**', '!/', '!/dis/**'],
+  //   target: 'http://localhost:8080',
+  //   changeOrigin: true,
+  //   secure: false,
+  //   autoRewrite: true,
+  // }],
 });
 
 server.listen(9001, 'localhost', (err) => {
